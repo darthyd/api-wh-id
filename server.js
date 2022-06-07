@@ -2,11 +2,25 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dataMatches = require('./data.json')
+const getMatches = require('./getMatchesWH.js')
 app.use(cors())
 app.use(express.json())
 
 app.get("/", (req, res) => {
     res.json(dataMatches);
+})
+
+app.get("/forceupdate", (req, res) => {
+    try {
+        const data = await getMatches()
+        fs.writeFile("data.json", JSON.stringify([...data]), err => {
+            if (err) res.send(error).statusCode(500)
+        });
+        res.json(data)
+      } catch (error) {
+        console.log(error)
+        res.send(error).statusCode(500);
+      }
 })
 
 app.get('/id', (req, res) => {
