@@ -6,7 +6,7 @@ const getMatches = require('./getMatchesWH.js');
 //     // run the getMatches function
 //     getMatches().then(data => {
 //         console.log(data)
-//         fs.writeFile("data.json", JSON.stringify([...data]), err => {
+//         fs.writeFile("public/data.json", JSON.stringify([...data]), err => {
 //             if (err) throw err;
 //         });
 //     })
@@ -18,7 +18,7 @@ const job = new CronJob(
        function() {
            getMatches().then(data => {
                console.log(data)
-               fs.writeFile("data.json", JSON.stringify([...data]), err => {
+               fs.writeFile("public/data.json", JSON.stringify([...data]), err => {
                    if (err) throw err;
                });
            })

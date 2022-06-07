@@ -5,7 +5,7 @@ const dataMatches = require("./public/data.json");
 const getMatches = require("./getMatchesWH.js");
 
 if(dataMatches.length === 0) getMatches().then(data => {
-    fs.writeFile("data.json", JSON.stringify([...data]), err => {
+    fs.writeFile("public/data.json", JSON.stringify([...data]), err => {
         if (err) throw err;
     });
 })
