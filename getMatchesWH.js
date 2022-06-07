@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 async function getMatches() {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     devtools: false,
     args: [
       '--no-sandbox',
