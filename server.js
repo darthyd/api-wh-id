@@ -11,10 +11,11 @@ app.get("/", (req, res) => {
 
 app.get('/id', (req, res) => {
     const { home, away } = req.query;
-    if(dataMatches.length === 0) res.send("Sem dados. Tente Novamente mais tarde.")
+    if(dataMatches.length === 0 || !home || !away) res.send("Sem dados. Verifique a requisição ou tente Novamente mais tarde.")
     const filtered = dataMatches.find(match => {
         return match.home.toLowerCase().includes(home.toLowerCase()) && match.away.toLowerCase().includes(away.toLowerCase());
     });
+    if(!filtered) res.send("Não encontrado")
     res.send(filtered?.id);
 });
 
