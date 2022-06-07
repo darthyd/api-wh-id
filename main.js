@@ -1,7 +1,7 @@
 const app = require("./server.js");
 const cron = require("./cron.js");
 const fs = require("fs");
-const dataMatches = require("./data.json");
+const dataMatches = require("./public/data.json");
 const getMatches = require("./getMatchesWH.js");
 
 if(dataMatches.length === 0) getMatches().then(data => {

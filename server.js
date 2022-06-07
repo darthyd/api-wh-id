@@ -1,14 +1,14 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const dataMatches = require('./data.json')
+const path = require("path");
+const fs = require("fs");
+const dataMatches = require('./public/data.json')
 const getMatches = require('./getMatchesWH.js')
+
+
 app.use(cors())
 app.use(express.json())
-
-app.get("/", async (req, res) => {
-    res.json(dataMatches);
-})
 
 app.get("/forceupdate", async (req, res) => {
     try {
@@ -20,7 +20,7 @@ app.get("/forceupdate", async (req, res) => {
         res.json(data)
       } catch (error) {
         console.log(error)
-        res.send(error).statusCode(500);
+        res.send(error);
       }
 })
 
@@ -33,5 +33,11 @@ app.get('/id', async (req, res) => {
     if(!filtered) res.send("Não encontrado")
     res.send(filtered?.id);
 });
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", async (req, res) => {
+    res.json(dataMatches);
+})
 
 module.exports = app;
