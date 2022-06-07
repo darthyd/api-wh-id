@@ -5,7 +5,11 @@ const dataMatches = require('./data.json')
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
+    res.send("Hello, World!");
+})
+
+app.get('/id', (req, res) => {
     const { home, away } = req.query;
     const filtered = dataMatches.find(match => {
         return match.home.toLowerCase().includes(home.toLowerCase()) && match.away.toLowerCase().includes(away.toLowerCase());
