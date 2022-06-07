@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 
+
 async function getMatches() {
+  console.log("getMatches is called");
   const browser = await puppeteer.launch({
     headless: true,
     devtools: false,
@@ -9,6 +11,9 @@ async function getMatches() {
       '--disable-setuid-sandbox',
     ],
   });
+
+  console.log("initiate puppetter");
+
   const page = await browser.newPage();
   await page.goto(`https://sports.williamhill.com/betting/en-gb/football/matches/competition/today/match-betting`, {
     waitUntil: 'networkidle2'
@@ -47,9 +52,14 @@ async function getMatches() {
     })
 
     return arr;
-  })
+  });
+
+  console.log("exiting puppeteer");
 
   await browser.close();
+
+
+  console.log("getMatches is returning", dataMatches);
 
   return dataMatches;
 };
