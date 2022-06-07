@@ -25,7 +25,7 @@ const job = new CronJob(
        },
        null,
        false,
-       'America/Sao_Paulo',
+       'Europe/London',
    );
    
 module.exports = job;
