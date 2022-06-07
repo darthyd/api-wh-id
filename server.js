@@ -14,12 +14,15 @@ app.get("/forceupdate", async (req, res) => {
     try {
         const data = await getMatches()
         fs.writeFile("public/data.json", JSON.stringify([...data]), err => {
-            if (err) throw err;
+            if (err) {
+                console.log("err1:", err);
+                throw err;
+            }
         });
-        console.log(data)
+        console.log("data:", data)
         res.json(data)
       } catch (error) {
-        console.log(error)
+        console.log("err2:", error)
         res.send(error);
       }
 })
