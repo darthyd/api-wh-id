@@ -6,16 +6,17 @@ const getMatches = require('./getMatchesWH.js')
 app.use(cors())
 app.use(express.json())
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     res.json(dataMatches);
 })
 
-app.get("/forceupdate", (req, res) => {
+app.get("/forceupdate", async (req, res) => {
     try {
         const data = await getMatches()
         fs.writeFile("data.json", JSON.stringify([...data]), err => {
-            if (err) res.send(error).statusCode(500)
+            if (err) throw err;
         });
+        console.log(data)
         res.json(data)
       } catch (error) {
         console.log(error)
@@ -23,7 +24,7 @@ app.get("/forceupdate", (req, res) => {
       }
 })
 
-app.get('/id', (req, res) => {
+app.get('/id', async (req, res) => {
     const { home, away } = req.query;
     if(dataMatches.length === 0 || !home || !away) res.send("Sem dados. Verifique a requisição ou tente Novamente mais tarde.")
     const filtered = dataMatches.find(match => {
